@@ -1,327 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width">
 	<title>Target Indicator Demo</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	</link>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<!--
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
--->
-	
-	<style>
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-body {
-	font-family: 'Roboto', sans-serif;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    align-content: center; 
-    justify-content: center; 
-    overflow: auto;   
-}
 
-p {
-	padding: 0;
-	margin: 0;
-}
-
-.panel {
-	display: flex;
-	flex-direction: column;
-    border: 1px solid #606060;
-    border-radius: 5px;
-    min-width: 300px;
-    box-shadow:2px 2px 7px 0px rgba(50, 50, 50, 0.5);
-}
-
-.panel__header{
-	font-weight: bold;
-	background-color:#474747;
-	padding: 5px;
-}
-
-.panel__header > p {
-	color:#fff;
-}
-
-.panel__body {
-	padding: 10px;
-}
-
-.panel__body_error {
-	display: none;
-	width: 70%;
-	margin: 10px auto;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-	color:#bd1818;
-	box-shadow: 0px 0px 25px 0px rgba(255, 0, 11, 0.62);
-	border: 1px solid #d1d0d0;
-	border-radius: 5px;
-	padding: 20px;
-}
-.panel__body_error > h1 {
-	margin: 0;
-}
-
-.panel__body_content {
-	display: flex;
-	flex-direction: column;
-	border: 1px solid #d1d0d0;
-	border-radius: 5px;
-	padding: 20px;
-
-}
-
-.content__main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 10px;
-}
-
-.content__main_reached{
-	margin: 0 10px;
-	font-weight: bold;
-	font-size: .8rem;
-}
-
-
-.progressDiv {
-	display: flex;
-	background-color:#cbcbcb;
-	width: 60%;
-	height:12px;
-}
-.progressDiv__progress {
-	margin: auto 0 auto 2%;
-	background-color:#547dca;
-	width: 0%;
-	height:50%;
-}
-
-.progressDiv__arrow-up {
-	display: none;
-	justify-content: center;
-	position: relative;
-	top:20px;
-	right: 5px;
-	width: 0; 
-	height: 0; 
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-
-	border-bottom: 5px solid #5c5c5c;
-	
-	left: 95%
-}
-
-.progressDiv__arrow-up_money {
-	position: relative;
-	top:5px;
-	font-size: .7rem;
-
-}	
-
-.content__main_target {
-	padding: 2px;
-	text-align: center;
-	color:#fff;
-	width: 50px;
-	background: linear-gradient(to bottom, #9f9a9b 0%,#6a676d 100%);
-	border: 1px solid #d8d5d6;
-	border-radius: 5px;
-}
-
-
-.target__head{
-	border-bottom: 1px solid #7c7b7d;
-}
-.target__head > p {
-	font-size:.7rem;
-}
-.target__price{
-	border-top: 1px solid #9e989a;
-}
-
-.content__description {
-	display: flex;
-	justify-content: center;
-	margin-top: 10px;
-	text-align: center;
-}
-.content__description > img {
-	margin-right: 5px;
-	float:left;
-	width: 15px;
-	height: 15px;
-}
-
-.content__description_image {
-
-	/* лень скачивать картинки :) */
-	
-	content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHRSURBVFhH7Zi5SsRQGEbHfelc0NINQRRcURRcH0F8BwvfQhGt3ZdGfAxBG1u1sBNxQ1BQS8VK0PMN+SGGFMl446TIgcPM/TNz55u7ZJLJZWREpxyHcNB7niqm8QG/Pe+9WirowA+0cOY76ljR2cdgOHMHi84RhoWTOpY4JTiPl6h1tod1aKgdFk5uY+IoXPCDj1HBhdaZ1lvwNaq1Y5AqtPc6QSMX/HDZhYZ2rHauHbvDKQzSj9pQZ+gs5CP6g5lj6KcMdQ6Ueh7GHOq9Gt1KFVywi8FwT1iDcdGozaJG0hnaECdo4Z5xAlOFvrnW3CgWMnIZqaMRN/AU1712aqjAC/Tv2nNM4hJqAJcw1q4eQX84cxhdonPlG6rvVyzFSPxXQAVSMPX94rUjoSnWlPrDJTXFmtpF7Mu3YtCAa6hNosd6zMgoJs24irr/mFThD0TerVHRxcE12o7+wnEshAX8xFvsUcEFM+g/5Ujdh8RFJ2aFsz4O0Qk6R/nDyRUsBI2c9bGsgit0f2sdX2ETBmnDLc9WFULoxgNUuFoVXNKLmu7qfOs3+vXRjZJ9CY1Uqv6f6UQLZ6bibw9Do+UfwRuvliq07jZRF7otKmRkZCROLvcDoYmZ3LMx+BUAAAAASUVORK5CYII=");
-
-	 animation: 2s rotate360 infinite linear;
-	
-}
-
-
-.content__description_info {
-	float:left;
-	font-size: .7rem;
-	text-align: center;
-}
-
-@keyframes rotate360 {
-  to { transform: rotate(360deg); }
-}
-
-	</style>
-	<script type="text/javascript">
-var maxValue = 15; // максимальное значение
-var nowMoney = 0; // сейчас денег
-var stepMoney = 0.2 // денег за тик
-var inter;
-
-function onGoodResponse(){
-
-	/* 
-	
-	** При 'Хорошем' ответе от сервера **
-	1. Заменяеться картинка ожидания на инфо.
-	2. Поясвляеться стрелочка под прогрессом.
-	3. Изменяеться текст под стрелочкой и текст информации.
-	
-	*/
-	$('.content__description_info').text('You need $15.00 more to reach your target.');
-	$('.progressDiv__arrow-up_money').text(`$0.00`);
-	
-	$('.progressDiv__arrow-up').css('display', 'flex');
-
-
-	
-	/* лень скачивать картинки :) */
-	$('.content__description_image').css('content', `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQ5SURBVFhHvVhLT1NBFK4bdeH7B0gipRhMNBHYSFCMGuPCZzQmGldG0I0aDTuXxq0I6lZdmBhMxBh6W3wBQUETCO29lzcoUB5qgFKFYnl0PGfutF6aU3rntuFLvqTtnDPzdR7nnBlHunAqvZtcilbocqunnIp6EZnt8Z/MdasF2CbMVhGMrcmp9e/P8aiPnIrWlePR2MpUO9AWfdBX9JJ5wGysc3rUq06PNkALsUBF7QOW5lXra0W3mYHL7T8Gs9BPDmqHIDTbox0V3dtHVv339Xx5qEEyQNgiVbgyYjg55Hn1bTmK1kx1nEnCtmnaXqtuFcNaQ1ZN+xY4jT6qQyvc/baDvRieZMH5ReafDrOShh7SLkYca8e71s1i+JWBywr/6gvVkVU++T7BzHg1EiTtzIQxP1k6PLDnHlMdyHB0bl5IM+D9ESLtEol7UsigYZxW2lmGAzN/hTQDN33DpB1Fp1c9IuQshzixGQklpa2DLAT7L7y4xCr7fpI2SamoveRSYxAmHWwy16uxnV6dbEtJt35FyBLA9JXBQOwC7qqzKQ4Js7gsLUJULyENJYgzdq1tiLVMzrBZWNoo7L1ngxOkrTX6i4U8fnLTyhaHGnuYLxg2ToQJi9Go7WWGnF8p5PH910kZWeH19mE2s7AkJC3H8GyE9LFERdUNcVCzkQYWWO4P8FlC6KEw6/kzxz/H8DIwRfpZoqJG8+r1DQ4sNkmDFLwN4iJLUeYen2bnWwb4bxqkNTNwdhP9ZJhdp+bDAdFPUI2peOnrN1Zc3x3/Xvi+k4HeOHBmC+A3s48sIbMcdzi9/gtUoyxv+QJCmoHWqVnSToaoLWMCa0aDQpqBil7JDEKQC7S7xGZiDJyILAhpBs4095O2MuRLjLcvqlGGp0GMGVORRS6aspUh3A73phVmYsTlNOPNWOr6LyVjYYbHwjQCNbItOCukGShXA6SdFGOBGpFOqsNQEgvWCPy072MXaStFRa0Q8jCbqAdIIwu8AcWoGZ2hOdJOli63ViTkAbDcwks1YZiKT6FiMeP50CRpJ8XEcgsBy1xGGqcg3trMuKOPxtvwJJe1DbIiySWH8HJZyPoPLLNROeWQjHlQlM6b8xvgbEs/y4d9ea9rnAXCEZ6fMQ1S/hRBXHfS2x0+R1BOyXgQ7ruJ8IyH+F0E0fjrN9sDd2TKlySEFljJw0IODTgwD0lnguegikmGaii1ZItVmL0HQkZy4FsJ/JPPVAeJxL1lDjEILF6xTqTsVyLE4g+WX73wGcLq08fdzjGe2kZgv+GJNpdgVgni2i0/fcSADzrg2ER1mGE24FuQGFYO/NFS0aqITtOncSDu235+MwOfI2RD0ErEUJLytMqCx0m48aclFHwxCFs+DLbAXyH8xRgSYECdFGIm2kDi57k1MX2tBnJfd23E2xdW5liic0IljL/F6znbcDj+AVqiipsKTMibAAAAAElFTkSuQmCC")`);
-	$('.content__description_image').css('animation', 'none')
-
-}
-
-function startAnimate(balance_usd) {
-
-
-	var maxPerce = balance_usd / maxValue * 100; // Максимум процентов на прогрессе
-
-	var steps = balance_usd / stepMoney; // Всего тиков в интервале
-
-	var stepPerce = maxPerce / steps // Процент за шаг
-	var nowStep = 0; // Начальные шаг
-
-
-	var inter = setInterval(function (){
-
-		nowStep++
-
-		var barPerce = nowStep * stepPerce; // Процент на баре
-
-		if(nowStep <= steps) { // если не все шаги пройдены
-			$('.progressDiv__progress').css('width',`${barPerce}%`); // изменяет прогресс бар
-
-			nowMoney = stepMoney * nowStep;
-			// изменяет текст You need
-			$('.progressDiv__arrow-up_money').text(`$${nowMoney.toFixed(2)}`); 
-		}
-		else
-			clearInterval(inter);// 'удаляет' интервал после всех тиков. 
-
-		if(barPerce === 100) 
-			onTarget() // если все 15$
-
-		
-		const left = (maxValue - nowMoney).toFixed(2)
-		$('.content__description_info').text(`You need $${left} more to reach your target.`)
-		
-	},2000) // тик каждые 2с
-}
-
-
-function onTarget(){
-
-	/*
-
-	** При достижении 100% 15$ **
-
-	1. Меняеться цвет  [Target $15] 
-	2. Стрелка встает под  [Target $15] 
-	3. “You need...” убираеться
-	*/
-
-	$('.content__main_target').css({
-		"background": "linear-gradient(to bottom, #72a02c 0%,#72a02c 50%,#a1d54f 50%,#3b8e11 51%,#7cbc0a 100%)", "color":"#ebebeb"
-	});
-	$('.progressDiv__arrow-up').css({ "left": "117%" })
-	$('.progressDiv__arrow-up').css({ "top": "25px" })
-	$('.content__description').hide();
-}
-
-function err(mes){
-	/*
-		** При ошибке **
-
-		1. Прячеться основной контент
-		2. Показываеться контент с ошибкой
-		3. В контенте с ошибка пишеться ошибка
-	*/
-	$('.panel__body_content').hide(1000);
-	$('.panel__body_error').show(1000);
-	$('.panel__body_error > h1').text(mes);
-}
-
-$(function() {
-
-	var test = false /* при true и не убранном ниже (!) будет ошибка запроса
-	Если убрать ниже (!) воскл знак, то:
-	1. Будет искуственная задержка
-	2. Баланс с сервера поставиться в максимальное значение(15$)
-*/
-		// СНЯТЬ !
-	var good = !test ? 'http://alex.devel.softservice.org/testapi/' : 'http://alex.devel.softservice.org';
-
-	var testTimeout = test ? 1000 : 400;
-
-	setTimeout(()=>$.ajax({
-		url:good,
-		error(jqXHR, textStatus, errorThrown){
-			err(`The server responded with an error ${jqXHR.status}`); // При ошибке
-		},
-		success({balance_usd}){
-
-			if(test)
-				balance_usd = 999
-
-			if(!balance_usd){
-				err('The server did not give a balance'); //Если поле balance_usd в ответе не обнаружено
-			} else if(balance_usd > maxValue)
-				balance_usd = maxValue	//Если сервер дал больше, чем клиент ожидал
-
-			onGoodResponse();
-
-			startAnimate(balance_usd);
-		}
-	}),testTimeout)// при тесте искуственный задержка сервера 1сек
-	
-
-})
-	</script>
 </head>
-<body>		
+
+<body>
 	<div class="panel">
 		<div class="panel__header">
 			<p>Target Indicator Demo</p>
@@ -334,13 +24,13 @@ $(function() {
 				<div class="content__main">
 					<p class="content__main_reached">Reached:</p>
 					<div class="progressDiv">
-						
+
 						<div class="progressDiv__progress">
 							<div class="progressDiv__arrow-up">
 								<p class="progressDiv__arrow-up_money">$0</p>
 							</div>
 						</div>
-						
+
 					</div>
 					<div class="content__main_target">
 						<div class="target__head">
@@ -358,6 +48,7 @@ $(function() {
 			</div>
 		</div>
 	</div>
-
+	<script src="script.js"></script>
 </body>
+
 </html>
