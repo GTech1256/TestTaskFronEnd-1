@@ -100,7 +100,7 @@ p {
 }
 
 .progressDiv__arrow-up {
-	display: none;
+	display: flex;
 	justify-content: center;
 	position: absolute;
 	top: 20px;
