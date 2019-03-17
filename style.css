@@ -21,16 +21,17 @@ p {
 .panel {
 	display: flex;
 	flex-direction: column;
-    border: 1px solid #606060;
-    border-radius: 5px;
-    min-width: 300px;
-    box-shadow:2px 2px 7px 0px rgba(50, 50, 50, 0.5);
+  border: 1px solid #606060;
+  border-radius: 5px;
+  min-width: 300px;
+  box-shadow:2px 2px 7px 0px rgba(50, 50, 50, 0.5);
+  overflow: hidden;
 }
 
 .panel__header{
-	font-weight: bold;
 	background-color:#474747;
-	padding: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
 }
 
 .panel__header > p {
@@ -38,7 +39,8 @@ p {
 }
 
 .panel__body {
-	padding: 10px;
+  padding: 10px;
+  background-color: #f2f2f2;
 }
 
 .panel__body_error {
@@ -59,7 +61,8 @@ p {
 }
 
 .panel__body_content {
-	display: flex;
+  display: flex;
+  background-color: #fff;
 	flex-direction: column;
 	border: 1px solid #d1d0d0;
 	border-radius: 5px;
@@ -77,19 +80,20 @@ p {
 .content__main_reached{
 	margin: 0 10px;
 	font-weight: bold;
-	font-size: .8rem;
+  font-size: .8rem;
+  color: #686667;
 }
 
 
 .progressDiv {
 	display: flex;
 	background-color:#cbcbcb;
-	width: 60%;
+	width: 120px;
 	height:12px;
 }
 .progressDiv__progress {
 	margin: auto 0 auto 2%;
-	background-color:#547dca;
+	background-color:#0488d2;
 	width: 0%;
   height:50%;
   position: relative;
@@ -163,7 +167,7 @@ p {
 
 .content__description_info {
 	float:left;
-	font-size: .7rem;
+	font-size: 12px;
 	text-align: center;
 }
 

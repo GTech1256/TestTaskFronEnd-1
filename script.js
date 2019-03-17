@@ -57,7 +57,7 @@ function startAnimate(balance_usd) {
       onTarget() // если все 15$
 
 
-    const left = (maxValue - nowMoney).toFixed(2)
+    var left = (maxValue - nowMoney).toFixed(2)
     $('.content__description_info').text(`You need $${left} more to reach your target.`)
 
   }, 2000) // тик каждые 2с

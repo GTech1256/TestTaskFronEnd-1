@@ -1,0 +1,20 @@
+{
+  "name": "SoftserviceTestTask1",
+  "homepage": "https://github.com/GTech1256/TestTaskFronEnd-1",
+  "authors": [
+    "Roman <pomah156@gmail.com>"
+  ],
+  "description": "Price loader with jquery",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
